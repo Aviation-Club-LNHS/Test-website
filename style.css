@@ -318,12 +318,58 @@ body {
     width: 100%;
 }
 
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    padding: 0 40px;
+    min-height: 24rem;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
+}
+
 .main2_features_div {
     padding-top: 2rem;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap:wrap;
+    flex-wrap: nowrap;
+    overflow: visible;
+    width: 100%;
+    transition: transform 0.5s ease;
+    position: relative;
+    min-height: 24rem;
 }
 
 .main2_feature {
@@ -331,16 +377,42 @@ body {
     background-color: var(--background1);
     height: 24rem;
     width: 18rem;
-    margin: 1rem;
     border-radius: var(--roundness);
     transition: all .5s;
     flex-direction: column;
     border: 2px solid transparent;
+    flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
+    opacity: 0.7;
+    pointer-events: none;
+    margin: 0;
+}
+
+.main2_feature.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+    transform: translateX(-50%) scale(1);
+}
+
+.main2_feature.prev {
+    transform: translateX(-150%) scale(0.85);
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.main2_feature.next {
+    transform: translateX(50%) scale(0.85);
+    opacity: 0.7;
+    pointer-events: auto;
+    z-index: 1;
 }
 
 .main2_feature:hover {
-    background-color: #00000099;
-    transform: scale(1.05);
+    background-color: #0a0a0a;
     border-color: var(--accent2);
     box-shadow: 0 0 30px rgba(134, 182, 246, 0.3);
 }
@@ -362,7 +434,7 @@ body {
     width: 100%;
     height: 50%;
     object-fit: cover;
-    border-radius: var(--roundness);
+    border-radius: var(--roundness) var(--roundness) 0 0;
 }
 
 .main2_feature_headline {
@@ -378,6 +450,27 @@ body {
     text-align: center;
     font-size:1.2rem;
     margin-bottom: auto;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: var(--accent1);
+    transform: scale(1.2);
 }
 
 /* Section 3 - Join */

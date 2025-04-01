@@ -1,4 +1,4 @@
-# 🛩️ LNHS Aviation Club [ TEST WEBSITE ]
+# 🛩️ LNHS Aviation Club
 
 Welcome to the **LNHS Aviation Club** where you can explore the world of aviation by building your own planes and helicopters with our exciting model kits! Whether you're a beginner or an experienced hobbyist, our club provides a hands-on experience in aircraft assembly and design.
 
