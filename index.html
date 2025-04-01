@@ -103,38 +103,140 @@
       <div id="more"></div>
       <div class="main2">
         <a class="headline">What we have</a>
-        <div class="carousel-container">
-          <button class="carousel-button prev" onclick="moveCarousel(-1)">❮</button>
-          <div class="main2_features_div">
-            <div class="main2_feature">
-              <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
-              <a class="main2_feature_headline">Feature 1</a>
-              <a class="main2_feature_text">Feature description</a>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="feature-card">
+                <img class="feature-image" src="media/placeholder.png" alt="Feature 1">
+                <div class="feature-content">
+                  <h3 class="feature-title">Feature 1</h3>
+                  <p class="feature-description">Feature description goes here. This can be a longer description of what this feature offers.</p>
+                </div>
+              </div>
             </div>
-            <div class="main2_feature">
-              <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
-              <a class="main2_feature_headline">Feature 2</a>
-              <a class="main2_feature_text">Feature description</a>
+            <div class="swiper-slide">
+              <div class="feature-card">
+                <img class="feature-image" src="media/placeholder.png" alt="Feature 2">
+                <div class="feature-content">
+                  <h3 class="feature-title">Feature 2</h3>
+                  <p class="feature-description">Feature description goes here. This can be a longer description of what this feature offers.</p>
+                </div>
+              </div>
             </div>
-            <div class="main2_feature">
-              <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
-              <a class="main2_feature_headline">Feature 3</a>
-              <a class="main2_feature_text">Feature description</a>
+            <div class="swiper-slide">
+              <div class="feature-card">
+                <img class="feature-image" src="media/placeholder.png" alt="Feature 3">
+                <div class="feature-content">
+                  <h3 class="feature-title">Feature 3</h3>
+                  <p class="feature-description">Feature description goes here. This can be a longer description of what this feature offers.</p>
+                </div>
+              </div>
             </div>
-            <div class="main2_feature">
-              <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
-              <a class="main2_feature_headline">Feature 4</a>
-              <a class="main2_feature_text">Feature description</a>
+            <div class="swiper-slide">
+              <div class="feature-card">
+                <img class="feature-image" src="media/placeholder.png" alt="Feature 4">
+                <div class="feature-content">
+                  <h3 class="feature-title">Feature 4</h3>
+                  <p class="feature-description">Feature description goes here. This can be a longer description of what this feature offers.</p>
+                </div>
+              </div>
             </div>
-            <div class="main2_feature">
-              <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
-              <a class="main2_feature_headline">Feature 5</a>
-              <a class="main2_feature_text">Feature description</a>
+            <div class="swiper-slide">
+              <div class="feature-card">
+                <img class="feature-image" src="media/placeholder.png" alt="Feature 5">
+                <div class="feature-content">
+                  <h3 class="feature-title">Feature 5</h3>
+                  <p class="feature-description">Feature description goes here. This can be a longer description of what this feature offers.</p>
+                </div>
+              </div>
             </div>
           </div>
-          <button class="carousel-button next" onclick="moveCarousel(1)">❯</button>
+          <div class="swiper-nav">
+            <button class="swiper-button prev" onclick="moveSwiper(-1)">❮</button>
+            <button class="swiper-button next" onclick="moveSwiper(1)">❯</button>
+          </div>
+          <div class="swiper-dots"></div>
         </div>
-        <div class="carousel-dots"></div>
+        <script>
+          let currentSlide = 0;
+          const slides = document.querySelectorAll('.swiper-slide');
+          const dotsContainer = document.querySelector('.swiper-dots');
+
+          // Create dots
+          slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'swiper-dot' + (index === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(index);
+            dotsContainer.appendChild(dot);
+          });
+
+          function updateSwiper() {
+            // Update slides
+            slides.forEach((slide, index) => {
+              slide.classList.remove('active');
+              if (index === currentSlide) {
+                slide.classList.add('active');
+              }
+            });
+
+            // Update dots
+            document.querySelectorAll('.swiper-dot').forEach((dot, index) => {
+              dot.classList.toggle('active', index === currentSlide);
+            });
+          }
+
+          function moveSwiper(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            updateSwiper();
+          }
+
+          function goToSlide(index) {
+            currentSlide = index;
+            updateSwiper();
+          }
+
+          // Touch support
+          let touchStartX = 0;
+          let touchEndX = 0;
+          const swiperContainer = document.querySelector('.swiper-container');
+
+          swiperContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          });
+
+          swiperContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+          });
+
+          function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+              if (swipeDistance > 0) {
+                moveSwiper(-1);
+              } else {
+                moveSwiper(1);
+              }
+            }
+          }
+
+          // Keyboard support
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+              moveSwiper(-1);
+            } else if (e.key === 'ArrowRight') {
+              moveSwiper(1);
+            }
+          });
+
+          // Initial setup
+          updateSwiper();
+
+          // Update on window resize
+          window.addEventListener('resize', updateSwiper);
+        </script>
       </div>
 
       <!-- SECTION 3 - DISCORD -->
@@ -254,94 +356,5 @@
       <a class="copyright">Made by &#8203;</a><a href="https://github.com/fir15playz" class="author-link">Im_NotCool &#8203;</a><a class="copyright">| &#8203;</a><a href="LICENSE.txt" class="author-link">License</a>
       <!-- The  (&#8203;) is because space wont work for some reason -->
     </footer>
-    <script>
-      let currentSlide = 0;
-      const featuresDiv = document.querySelector('.main2_features_div');
-      const features = document.querySelectorAll('.main2_feature');
-      const dotsContainer = document.querySelector('.carousel-dots');
-      const container = document.querySelector('.carousel-container');
-      
-      function updateCarousel() {
-        // Update active state of cards
-        features.forEach((feature, index) => {
-          feature.classList.remove('active', 'prev', 'next');
-          
-          if (index === currentSlide) {
-            feature.classList.add('active');
-          } else if (index === (currentSlide - 1 + features.length) % features.length) {
-            feature.classList.add('prev');
-          } else if (index === (currentSlide + 1) % features.length) {
-            feature.classList.add('next');
-          }
-        });
-        
-        // Update dots
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < features.length; i++) {
-          const dot = document.createElement('div');
-          dot.className = 'carousel-dot' + (i === currentSlide ? ' active' : '');
-          dot.onclick = () => goToSlide(i);
-          dotsContainer.appendChild(dot);
-        }
-      }
-
-      function moveCarousel(direction) {
-        const newSlide = currentSlide + direction;
-        
-        // Handle looping
-        if (newSlide >= features.length) {
-          currentSlide = 0;
-        } else if (newSlide < 0) {
-          currentSlide = features.length - 1;
-        } else {
-          currentSlide = newSlide;
-        }
-        
-        updateCarousel();
-      }
-
-      function goToSlide(slideIndex) {
-        currentSlide = slideIndex;
-        updateCarousel();
-      }
-
-      // Add keyboard navigation
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          moveCarousel(-1);
-        } else if (e.key === 'ArrowRight') {
-          moveCarousel(1);
-        }
-      });
-
-      // Add touch swipe support
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      featuresDiv.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      });
-
-      featuresDiv.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      });
-
-      function handleSwipe() {
-        const swipeThreshold = 50;
-        const swipeDistance = touchEndX - touchStartX;
-
-        if (Math.abs(swipeDistance) > swipeThreshold) {
-          if (swipeDistance > 0) {
-            moveCarousel(-1);
-          } else {
-            moveCarousel(1);
-          }
-        }
-      }
-
-      // Initial setup
-      updateCarousel();
-    </script>
   </body>
 </html>
